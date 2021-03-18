@@ -1,0 +1,46 @@
+let bubbles = [];
+
+for (let i=0; i<100; i++){
+  bubbles.push(
+    {
+      x : randomInt(0,cnv.width),
+      y : randomInt(0,cnv.height),
+      r : 30,
+      rSpeed : 0.1,
+      color : 'rgb(' + randomInt(0,255) + ',' + randomInt(0,255) + ',' +randomInt(0,255) + ')'
+    }
+  )
+}
+
+console.log(bubbles)
+
+requestAnimationFrame(draw);
+
+function draw(){
+  // draw black background
+  ctx.fillStyle = 'black';
+  ctx.fillRect(0,0,cnv.width,cnv.height);
+
+  // draw bubble(s)
+  for (let i=0; i < bubbles.length; i++){
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = bubbles[i].color;
+    ctx.beginPath();
+    ctx.arc(bubbles[i].x, bubbles[i].y,bubbles[i].r, 0, 2*Math.PI);
+    ctx.stroke();
+    pulseBubble(bubbles[i]);
+  }
+  
+
+ 
+
+
+  requestAnimationFrame(draw);
+}
+
+function pulseBubble(circleObj){
+  circleObj.r += circleObj.rSpeed;
+
+  if (circleObj.r >= 35 || circleObj.r <= 25) circleObj.rSpeed *= -1;
+
+}
